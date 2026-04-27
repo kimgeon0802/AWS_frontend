@@ -37,13 +37,8 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: latest
       run: |
-        docker build \
-          --build-arg REACT_APP_API_BASE_URL=${{ secrets.REACT_APP_API_BASE_URL }} \
-          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-          .
-
+        docker build --build-arg REACT_APP_API_BASE_URL=${{ secrets.REACT_APP_API_BASE_URL }} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . 
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     # 4. EC2(퍼블릭 서브넷)에 접속하여 배포
@@ -64,7 +59,6 @@ jobs:
           # 새 이미지 Pull 및 실행 (80포트로 서비스)
           sudo docker pull ${{ steps.login-ecr.outputs.registry }}/aws-lab-frontend:latest
           sudo docker run -d --name frontend-app -p 80:80 ${{ steps.login-ecr.outputs.registry }}/aws-lab-frontend:latest
-
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
