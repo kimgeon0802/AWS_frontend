@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-2
-  S3_BUCKET_NAME: sk-kk-s3-front-bucket
+  S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME_2 }}
 
 jobs:
   deploy:
