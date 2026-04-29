@@ -2,7 +2,7 @@ name: Deploy Frontend to Amazon EC2
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "dev/test" ]
 
 env:
   AWS_REGION: us-east-2

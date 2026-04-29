@@ -2,11 +2,11 @@ name: Deploy Frontend to S3
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "test" ]
 
 env:
   AWS_REGION: us-east-2
-  S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME_2 }}
+  S3_BUCKET_NAME: ${{ secrets.DEV_S3_BUCKET_NAME_2 }}
 
 jobs:
   deploy:
